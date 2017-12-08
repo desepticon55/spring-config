@@ -1,0 +1,50 @@
+#PRODUCTION PROPERTIES
+spring:
+  profiles: production
+  datasource:
+    monitorSys:
+      driverClassName: org.postgresql.Driver
+      jdbcUrl: url
+      username: user
+      password: user
+      connection-test-query: select 1
+    zabbixDataSource:
+      driverClassName: com.mysql.cj.jdbc.Driver
+      jdbcUrl: url
+      username: user
+      password: user
+      connection-test-query: select 1
+
+
+config:
+  loadDataFromZabbix: true
+  daysCountAggregateData: 1
+  scheduler:
+    fixedRateStringQuick: 5000
+    cronQuick: 0 0-59 * * * *
+    fixedRateString: 5000
+    cron: 0 10 0-23 * * *
+    fixedRateStringClearData: 5000
+    cronClearData: 0 0 0 * * *
+  zabbix:
+    url: url
+    login: user
+    password: user
+  nodes:
+    -
+      nodeName: etl1
+      hosts: jira.bssys.com, jira-app1, jira-app2, jira-db, jira-sd
+    -
+      nodeName: etl2
+      hosts: jira-eazybi, jira-eazybi-app
+    -
+      nodeName: etl3
+      hosts: jira, eazybi
+
+logging:
+  path: /logs
+  level:
+    root: ERROR
+    com.bssys: INFO
+    org.springframework.web: INFO
+
